@@ -2,10 +2,7 @@ const numberStyle = new Intl.NumberFormat('en-US')
 
 const treatRawData = (timelineData, currCountry) => {
 
-    let countryTimeLineData = timelineData.filter((entrie) => {
-        return entrie.countrycode === currCountry.code
-    })
-
+    let countryTimeLineData = Object.assign([],timelineData)
     
     // adjusting date format so it can be used
     countryTimeLineData.forEach((entrie) => {
@@ -16,6 +13,8 @@ const treatRawData = (timelineData, currCountry) => {
         entrie.day = strArr[1].padStart(2, '0')
         entrie.month = strArr[0].padStart(2, '0')
         entrie.year = `20${strArr[2]}`
+
+        entrie.dayAndMonth = `${entrie.day}/${entrie.month}`
 
         const newDate= `${entrie.year}${entrie.month}${entrie.day}`
         entrie.formattedDate=newDate

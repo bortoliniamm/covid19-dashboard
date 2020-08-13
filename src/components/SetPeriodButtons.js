@@ -1,4 +1,6 @@
 import React from 'react'
+import './styles.css'
+
 import { Button, ButtonGroup } from 'reactstrap'
 
 export default function SetPeriodButtons({newPeriod}) {

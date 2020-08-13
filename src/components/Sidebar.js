@@ -1,58 +1,55 @@
 import React from 'react'
-import { Button, Nav, NavItem, NavLink, Collapse, Navbar, NavbarToggler, NavbarBrand } from 'reactstrap';
+import './styles.css'
+
+import { Nav, NavItem, NavLink } from 'reactstrap';
+import CountryTextInput from './CountryTextInput';
 
 export default function Sidebar({countries, currCountry}) {
+    
+    const [filteredCountries, setFilteredCountries] = React.useState(countries)
 
-    const [isOpen, setIsOpen] = React.useState(false)
-
-    const toggle = () => setIsOpen(!isOpen)
-
-    const handleCountrySelect = (event) => {
+    const handleCountryClick = (event) => {
 
         const chosenCountry = event.target.innerText
         const newCountry = countries.find((country) => {
             return country.title === chosenCountry
         });
+
         currCountry(newCountry)
     }
 
-    const [collapsed, setCollapsed] = React.useState(true);
+    const handleFilterInput = (filter) => {
+        if(filter==='') {
+            setFilteredCountries(countries)
+        }else{
+            let auxFilteredCountries = countries.filter((country) => {
+                if(country.title !== undefined){
+                    const lcFilter = filter.toLowerCase()
+                    const lcCountryTitle = country.title.toLowerCase()
+                    return lcCountryTitle.includes(lcFilter) === true
+                }
+            })
 
-    const toggleNavbar = () => setCollapsed(!collapsed);
+            setFilteredCountries(auxFilteredCountries)
+        }
+    }
 
     return (
         <div>
-
-        <div>
-            <Navbar light>
-                <NavbarBrand href="/" className="mr-auto">List of countries   </NavbarBrand>
-                <NavbarToggler onClick={toggleNavbar} className="mr-2" />
-                <Collapse isOpen={!collapsed} navbar>
-                <Nav navbar>
-                    {countries.map((country) => {
-                        return (
-                            <NavItem>
-                                <NavLink onClick={handleCountrySelect}>{country.title}</NavLink>
-                            </NavItem>
-                        )
-                    })}
+            <h4>COUNTRIES</h4>
+            <div className='inner-sidebar'>
+                <div style={{padding: '5px'}}><CountryTextInput filter={handleFilterInput}/></div>
+                <Nav vertical>
+                        {filteredCountries.map((country) => {
+                                return(
+                                    <NavItem>
+                                        <NavLink href="#" onClick={handleCountryClick}>{country.title}</NavLink>
+                                    </NavItem>
+                                )
+                            })
+                        }
                 </Nav>
-                </Collapse>
-            </Navbar>
-        </div>
-
-          {/* <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>COUNTRY</Button>
-          <Collapse isOpen={isOpen}>
-            <Nav vertical>
-                {countries.map((country) => {
-                    return (
-                        <NavItem>
-                            <NavLink onClick={handleCountrySelect}>{country.title}</NavLink>
-                        </NavItem>
-                    )
-                })}
-            </Nav>
-          </Collapse> */}
+            </div>
         </div>
       )
 }
