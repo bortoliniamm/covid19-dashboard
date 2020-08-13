@@ -2,26 +2,37 @@ import React from 'react'
 import '../../node_modules/react-vis/dist/style.css'
 import {FlexibleXYPlot, XAxis, YAxis, LineSeries, VerticalGridLines, HorizontalGridLines} from 'react-vis'
 
-export default function TotalCasesCurve({data}) {
+export default function TotalCasesCurve({data, period}) {
 
     let plotDataArr = []
-    let dayCount = 0;
+    let dayCount = 0
+    let maxCases = 0
+
     data.forEach((entrie) => {
         plotDataArr.push({x:dayCount, y:Number(entrie.cases)})
         dayCount++;
     })
+    
+    const mostRecentPlotDataArr = plotDataArr.slice(-period)
 
-    const lastDay = plotDataArr[plotDataArr.length - 1]
+    mostRecentPlotDataArr.forEach((entrie) => {
+        if (entrie.y > maxCases){
+            maxCases=entrie.y
+        }
+    })
+
+    const firstDayOfPeriod = mostRecentPlotDataArr[0]
+    const lastDayOfPeriod = mostRecentPlotDataArr[mostRecentPlotDataArr.length - 1]
 
     return (
         <div className="center">
             <h5>Total accumulated cases</h5>
-            <FlexibleXYPlot height={250} xDomain={[0, lastDay.x]} yDomain={[0, lastDay.y]}>
+            <FlexibleXYPlot height={250} xDomain={[firstDayOfPeriod.x, lastDayOfPeriod.x]} yDomain={[firstDayOfPeriod.y, lastDayOfPeriod.y]}>
                 <VerticalGridLines />
                 <HorizontalGridLines />
                 <XAxis title="Days" />
                 <YAxis title="Cases (x 10^3)" tickFormat={v => v/1000}/>
-                <LineSeries data={plotDataArr} />
+                <LineSeries data={mostRecentPlotDataArr} />
             </FlexibleXYPlot>
 
         </div>

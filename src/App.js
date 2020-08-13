@@ -5,53 +5,51 @@ import SelectCountry from './components/SelectCountry'
 import Dashboard from './components/Dashboard'
 import Sidebar from './components/Sidebar'
 import {Spinner} from 'reactstrap'
+import SetPeriodButtons from './components/SetPeriodButtons';
+
+import helpers from './helpers/mainAppHelpers'
 
 export default function App() {
 
-  const [summaryData, setSummaryData] = React.useState([])
-  const [timelineData, setTimelineData] = React.useState([])
+  const [allCountriesSummary, setAllCountriesSummary] = React.useState([])
+  const [allCountriesTimelineData, setAllCountriesTimelineData] = React.useState([])
   const [currCountry, setCurrCountry] = React.useState()
   const [showDashboard, setShowDashboard] = React.useState(false)
   const [showSpinner, setShowSpinner] = React.useState(true)
   
-  async function fetchSummaryData() {
-    const res = await fetch('https://api.thevirustracker.com/free-api?countryTotals=ALL');
-    const json = await res.json();
-    const rawData = json.countryitems[0];
-    const arrData = Object.values(rawData)
-    setSummaryData(arrData);
-  }
-  
-  async function fetchTimelineData() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url = 'https://thevirustracker.com/timeline/map-data.json';
-    const res = await fetch(proxyurl+url);
-    const json = await res.json();
-    const rawData = json.data;
-    setTimelineData(rawData);
+  const [periodToCheck, setPeriodToCheck] = React.useState(0)
+
+  async function initialLoad () {
+    const auxAllCountriesSummary = await helpers.fetchSummaryData()
+    setAllCountriesSummary(auxAllCountriesSummary)
+
+    const auxAllCountriesTimelineData = await helpers.fetchTimelineData()
+    setAllCountriesTimelineData(auxAllCountriesTimelineData)
   }
   
   const handleCountryChange = (country) => {
-    setCurrCountry(country);
+    setCurrCountry(country)
   }
-  // }
+
+  const handlePeriodChange = (newPeriod) => {
+    setPeriodToCheck(newPeriod)
+  }
 
   React.useEffect(() => {
-    fetchSummaryData()
-    fetchTimelineData()
+      initialLoad();
   }, [])
 
   React.useEffect(() => {
-    const initialCountry = summaryData.find(((country) => country.title === 'USA'))
+    const initialCountry = allCountriesSummary.find(((country) => country.title === 'USA'))
     setCurrCountry(initialCountry)
-  }, [summaryData])
+  }, [allCountriesSummary])
 
   React.useEffect(() => {
-    if(summaryData.length>0 && timelineData.length>0){
+    if(allCountriesSummary.length>0 && allCountriesTimelineData.length>0){
       setShowDashboard(true)
       setShowSpinner(false)
     }
-  }, [summaryData, timelineData])
+  }, [allCountriesSummary, allCountriesTimelineData])
 
   return (
       <div className='container'>
@@ -69,15 +67,16 @@ export default function App() {
                 <div>
                     <h1>COVID-19 in {currCountry.title}</h1>
                     <div>
-                    {/* <div style={{display: 'flex', flexDirection: 'row'}}>
-                        <div style={{marginRight: '100px'}}>
-                            <Sidebar countries={summaryData} currCountry={handleCountryChange}/>
-                        </div> */}
                         <div style={{marginTop: '25px'}}>
-                          <div className='two-cols'>
-                            <SelectCountry data={summaryData} currCountry={handleCountryChange}/>
+                          <div className='two-cols' style={{justifyContent: 'space-between'}}>
+                            <div>
+                              <SelectCountry data={allCountriesSummary} currCountry={handleCountryChange}/>
+                            </div>
+                            <div>
+                              <SetPeriodButtons newPeriod={handlePeriodChange}/>
+                            </div>
                           </div>
-                            <Dashboard summaryData={summaryData} timelineData={timelineData} currCountry={currCountry} />
+                            <Dashboard timelineData={allCountriesTimelineData} currCountry={currCountry} period={periodToCheck}/>
                         </div>
                     </div>
                 </div>

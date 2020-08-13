@@ -24,7 +24,7 @@ export default function SelectCountry({ data, currCountry }) {
 
 
     return (
-        <div>
+        <div key={'select'}>
                 <Dropdown isOpen={dropdownOpen} toggle={toggle} onClick={handleChange}>
                     <DropdownToggle caret>
                         {placeholder}

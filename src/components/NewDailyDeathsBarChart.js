@@ -2,13 +2,13 @@ import React from 'react'
 import '../../node_modules/react-vis/dist/style.css'
 import { FlexibleXYPlot, VerticalBarSeries, XAxis, YAxis, VerticalGridLines, HorizontalGridLines} from 'react-vis'
 
-export default function NewDailyDeathsBarChart({data}) {
+export default function NewDailyDeathsBarChart({data, period}) {
     
     let plotDataArr = []
     let dayCount = 0
     let dayDeaths = 0
-    let accumulatedDeaths=0
-    let yMax=0;
+    let accumulatedDeaths = 0
+    let maxCases = 0
 
     data.forEach((entrie) => {
         dayDeaths = Number(entrie.deaths) - accumulatedDeaths;
@@ -18,18 +18,18 @@ export default function NewDailyDeathsBarChart({data}) {
         dayCount++;
     })
 
-    const mostRecentPlotDataArr = plotDataArr.slice(-30)
+    const mostRecentPlotDataArr = plotDataArr.slice(-period)
 
     mostRecentPlotDataArr.forEach((entrie) => {
-        if(entrie.y>yMax){
-            yMax=entrie.y
+        if(entrie.y>maxCases){
+            maxCases=entrie.y
         }
     })
 
     return (
         <div className="center">
-            <h5>New daily deaths</h5>
-            <FlexibleXYPlot height={250} yDomain={[0, 1.25*yMax]}>
+            <h5>Daily deaths</h5>
+            <FlexibleXYPlot height={250} yDomain={[0, 1.1*maxCases]}>
                 <VerticalGridLines />
                 <HorizontalGridLines />
                 <VerticalBarSeries data={mostRecentPlotDataArr}/>
