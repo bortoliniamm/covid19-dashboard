@@ -74,7 +74,7 @@ function getCardParameters (country, percentages, cardType) {
             info2 = 'Recovered'
             value2 = country.total_recovered
             percentage2 = percentages.strRecoveredToClosedCases
-            showPercentage2 = true
+            showPercentage2 = false
             fontColor2 = goodNumberFontColor
             fontSize2 = smallFontSize 
             

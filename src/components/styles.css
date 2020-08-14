@@ -71,11 +71,11 @@ body, html {
     margin-top: 10px;
 }
 .inner-sidebar {
-    border-radius: 10px;
     height: 75vh;
     overflow-y: scroll;
     width: 12vw;
     background-color: #ecf0f1;
+    /* box-shadow: 0px 1px 5px lightslategrey; */
 }
 .outer-sidebar {
     border-radius: 10px;
