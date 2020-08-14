@@ -3,7 +3,7 @@
 <h3 align="center">
   <a href="#about">About</a>&nbsp;|&nbsp;
   <a href="#technologies">Technologies</a>&nbsp;|&nbsp;
-  <a href="#available-scripts">Available Scripts</a>&nbsp;|&nbsp;
+  <a href="#available-scripts">Available Scripts</a>
   
 </h3>
 
