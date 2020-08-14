@@ -39,7 +39,6 @@ export default function Sidebar({allCountriesSummary, newCurrCountry}) {
 
     return (
         <div>
-            <h4>COUNTRIES</h4>
             <div className='outer-sidebar'>
                 <div style={{padding: '5px'}}><CountryTextInput filter={handleFilterInput}/></div>
                     <div className='inner-sidebar'>

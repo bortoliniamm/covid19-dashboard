@@ -1,6 +1,62 @@
 body, html {
     background-color:  #bdc3c7
 }
+.card{
+    height: 22.5vh;
+    width: fit-content;
+    min-width: 15vw;
+    margin: 5px;
+    background-color: #ecf0f1;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: left;
+}
+.pie-card{
+    height: 46vh;
+    width: 31vw;
+    min-width: 15vw;
+    margin: 5px;
+    background-color: #ecf0f1;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: left;
+    box-shadow: 0px 0px 5px lightslategrey;
+}
+.charts {
+    width: 25vw;
+    height: fit-content;
+    min-width: 25vw;
+    min-height: 30vh;
+    margin: 5px;
+    background-color: #ecf0f1;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0px 0px 5px lightslategrey;
+}
+.custom-main-grid {
+    width: inherit;
+    display: grid;
+    grid-template-columns: min-content min-content;
+    overflow: auto;
+    width: ;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: max-content max-content;
+}
+.chart-grid{
+    display: grid;
+    grid-template-columns: max-content max-content;
+    float: left;
+    overflow: auto;
+    width: fit-content;
+}
+.my-dashboard {
+    width: inherit;
+    float: left;
+    width: fit-content;
+}
 .spinner {
     margin: 0;
     position: absolute;
@@ -9,81 +65,69 @@ body, html {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+.pie-chart{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.inner-sidebar {
+    border-radius: 10px;
+    height: 75vh;
+    overflow-y: scroll;
+    width: 12vw;
+    background-color: #ecf0f1;
+}
+.outer-sidebar {
+    border-radius: 10px;
+    height: 94vh;
+    width: 12vw;
+    background-color: #ecf0f1;
+    box-shadow: 0px 0px 5px lightslategrey;
+}
+.custom-card-title{
+    font-size: 15px;
+    font-weight: bold;
+}
+.custom-card-info{
+    font-size: 12px;
+}
+.country-title {
+    text-align: left;
+    font-size: 30px;
+}
+.values {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    color: #ee5253;
+}
+.percentage {
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 5px;
+    color: #ee5253;
+    text-align: right;
+}
+.number-plus-percentage {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end; 
+    align-items: baseline;
+}
+.whole-page {
+    height: 100vh;
+    position: relative;
+}
+.main-page{
+    display: grid;
+    grid-template-columns: 10% 90%;
+    align-items: top;
+    margin-top: 10px;
+}
 .two-cols {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     margin-top: 10px;
-    min-width: 500px;
-}
-.outer-sidebar {
-    border-radius: 10px;
-    height: 90vh;
-    width: 25vh;
-    background-color: #ecf0f1;
-}
-.inner-sidebar {
-    border-radius: 10px;
-    height: 75vh;
-    overflow-y: scroll;
-    width: 25vh;
-    background-color: #ecf0f1;
-}
-.grid {
-    display: grid;
-    grid-template-columns: 15% 15% 35% 35%;
-    padding: 10px;
-}
-.main-page{
-    display: grid;
-    grid-template-columns: 10% 90%;
-    align-items: top;
-    margin-top: 25px;
-}
-.values {
-    font-size: 18px;
-    text-align: right;
-}
-.percentage {
-    font-size: 12px;
-    margin-left: 5px;
-}
-
-.number-plus-percentage {
-    display: flex; 
-    flex-direction: row; 
-    justify-content: flex-end; 
-    align-items: baseline;
-}
-.card{
-    border-radius: 10px;
-    padding: 10px;
-    text-align: left;
-    height: 200px;
-    width: 25vh;
-    background-color: #ecf0f1;
-}
-.card-in-grid {
-    align-self: center;
-}
-.country-title {
-    text-align: left;
-    font-size: 30px;
-}
-.charts {
-    align-self: center;
-    border-radius: 10px;
-    margin: 10px;
-    margin-top: 0px;
-    margin-bottom: 20px;
-    padding: 5px;
-    align-items: center;
-    width: fit-content;
-    min-width: 350px;
-    background-color: #ecf0f1;
-}
-.whole-page {
-    height: 100vh;
-    position: relative;
 }

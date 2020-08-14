@@ -1,6 +1,6 @@
 import React from 'react'
-import './styles.css'
 import '../../node_modules/react-vis/dist/style.css'
+import './styles.css'
 
 import {FlexibleXYPlot, XAxis, YAxis, LineSeries, VerticalGridLines, HorizontalGridLines} from 'react-vis'
 

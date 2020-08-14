@@ -82,9 +82,13 @@ const calculatePercentages = (currCountry) => {
     }
 
     const formattedPercentages = {
-        deathsToTotalCases: (100*rawPercentages.deathsToTotalCases).toFixed(2) + "%",
-        deathsToClosedCases: (100*rawPercentages.deathsToClosedCases).toFixed(2) + "%",
-        recoveredToClosedCases: (100*rawPercentages.recoveredToClosedCases).toFixed(2) + "%"
+        deathsToTotalCases: parseFloat((100*rawPercentages.deathsToTotalCases).toFixed(2)),
+        deathsToClosedCases: parseFloat((100*rawPercentages.deathsToClosedCases).toFixed(2)),
+        recoveredToClosedCases: parseFloat((100*rawPercentages.recoveredToClosedCases).toFixed(2)),
+        
+        strDeathsToTotalCases: (100*rawPercentages.deathsToTotalCases).toFixed(2) + "%",
+        strDeathsToClosedCases: (100*rawPercentages.deathsToClosedCases).toFixed(2) + "%",
+        strRecoveredToClosedCases: (100*rawPercentages.recoveredToClosedCases).toFixed(2) + "%"
     }
     
     return formattedPercentages
