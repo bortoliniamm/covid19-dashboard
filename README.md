@@ -1,16 +1,11 @@
 <h2 align="center">covid19-dashboard</h2>
 
-___
-
 <h3 align="center">
   <a href="#about">About</a>&nbsp;|&nbsp;
   <a href="#technologies">Technologies</a>&nbsp;|&nbsp;
   <a href="#available-scripts">Available Scripts</a>&nbsp;|&nbsp;
   
 </h3>
-
-___
-
 
 ## About
 
