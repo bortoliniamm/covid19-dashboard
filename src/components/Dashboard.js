@@ -1,7 +1,7 @@
 import React from 'react'
 import './styles.css'
 
-import CardGrid from './CardGrid'
+import PieAndCardsGrid from './PieAndCardsGrid'
 import ChartGrid from './ChartGrid'
 
 import dashboardHelper from '../helpers/dashboardHelpers'
@@ -21,7 +21,7 @@ export default function Dashboard({ currCountryTimelineData, currCountrySummary,
 
                 <div className='custom-main-grid'>
 
-                    <CardGrid country={formattedCurrCountry} percentages={percentages} />
+                    <PieAndCardsGrid country={formattedCurrCountry} percentages={percentages} />
                     <ChartGrid countryTimeLineData={countryTimeLineData} period={period} />
                     
                 </div>

@@ -8,7 +8,7 @@ import Dashboard from './components/Dashboard'
 import Sidebar from './components/Sidebar'
 import SetPeriodButtons from './components/SetPeriodButtons';
 
-import helpers from './helpers/mainAppHelpers'
+import appHelper from './helpers/mainAppHelpers'
 
 export default function App() {
 
@@ -25,10 +25,10 @@ export default function App() {
   // 0 for all time, 7 for one week, 15 for two weeks and 30 for one month
 
   async function initialLoad () {
-    const auxAllCountriesSummary = await helpers.fetchSummaryData()
+    const auxAllCountriesSummary = await appHelper.fetchSummaryData()
     setAllCountriesSummary(auxAllCountriesSummary)
 
-    const auxAllCountriesTimelineData = await helpers.fetchTimelineData()
+    const auxAllCountriesTimelineData = await appHelper.fetchTimelineData()
     setAllCountriesTimelineData(auxAllCountriesTimelineData)
   }
   
