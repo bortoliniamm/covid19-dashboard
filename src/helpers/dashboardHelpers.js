@@ -1,13 +1,13 @@
 const numberStyle = new Intl.NumberFormat('en-US')
 
-const treatRawData = (timelineData, currCountry) => {
+const treatRawData = (currCountryTimelineData) => {
 
-    let countryTimeLineData = Object.assign([],timelineData)
+    let auxCountryTimeLineData = Object.assign([],currCountryTimelineData)
     
     // adjusting date format so it can be used
-    countryTimeLineData.forEach((entrie) => {
+    auxCountryTimeLineData.forEach((entrie) => {
         
-        let rawDate = entrie.date
+        const rawDate = entrie.date
         const strArr = rawDate.split("/")
 
         entrie.day = strArr[1].padStart(2, '0')
@@ -21,15 +21,16 @@ const treatRawData = (timelineData, currCountry) => {
 
     })
 
-    countryTimeLineData.sort((a,b)=>{
+    auxCountryTimeLineData.sort((a,b)=>{
         return a.formattedDate-b.formattedDate
     })
 
-    return countryTimeLineData
+    return auxCountryTimeLineData
 }
 
 const formatCurrCountryArr = (currCountry) => {
-    const {code, 
+    const {
+        code, 
         ourid, 
         source, 
         title, 
@@ -40,7 +41,8 @@ const formatCurrCountryArr = (currCountry) => {
         total_new_deaths_today, 
         total_recovered, 
         total_serious_cases, 
-        total_unresolved} = currCountry
+        total_unresolved
+    } = currCountry
     
     const closed_cases = total_recovered + total_deaths
 

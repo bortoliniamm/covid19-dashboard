@@ -1,55 +1,63 @@
-function getBarChartData(timelineData, period, barChartType) {
+function getBarChartParameters(countryTimelineData, period, barChartType) {
 
-    let chartInfo = {}
-
-    let plotDataArr = []
-    let dayCount = 0
-    let dayCases = 0
-    let accumulatedCases = 0
-    let yMax = 0
-
-    timelineData.forEach((entrie) => {
+    let title = ''
+    let xLabel = ''
+    let yLabel = ''
+    
+    //barChartType: 1 for daily new cases and 2 for daily new deaths
+    switch (barChartType) {
+        case 1:
+            title = 'Daily cases'
+            
+            xLabel = 'Day'
+            yLabel = 'New Cases (x10^3)'
+            break
+        case 2:
+            title = 'Daily deaths'
+            
+            xLabel = 'Day'
+            yLabel = 'Deaths'            
+            break
+        default:  
+    }
+    
+    let auxCountryTimeLineData = []
+    let day = 0
+    let dailyCount = 0
+    let accumulated = 0
+    countryTimelineData.forEach((entrie) => {
         
         if(barChartType===1){
-            dayCases = Number(entrie.cases) - accumulatedCases
+            dailyCount = Number(entrie.cases) - accumulated
         }else if(barChartType===2){
-            dayCases = Number(entrie.deaths) - accumulatedCases
+            dailyCount = Number(entrie.deaths) - accumulated
         }
-
-        accumulatedCases = accumulatedCases + dayCases
-        plotDataArr.push({x:dayCount, y:Number(dayCases), tickDate: entrie.dayAndMonth})
-        dayCount++;
+        
+        accumulated = accumulated + dailyCount
+        auxCountryTimeLineData.push({x:day, y:Number(dailyCount), tickDate: entrie.dayAndMonth})
+        
+        day++;
     })
-
-    const mostRecentPlotDataArr = plotDataArr.slice(-period)
-    chartInfo.mostRecentPlotDataArr = mostRecentPlotDataArr
-
-    mostRecentPlotDataArr.forEach((entrie) => {
+    
+    const mostRecentTimelineData = auxCountryTimeLineData.slice(-period)
+    
+    let yMax = 0
+    mostRecentTimelineData.forEach((entrie) => {
         if(entrie.y>yMax){
             yMax=entrie.y
         }
-    })
-    chartInfo.yMax=yMax
+    })        
 
-    switch (barChartType) {
-        case 1:
-            chartInfo.title = 'Daily cases'
-
-            chartInfo.xLabel = 'Day'
-            chartInfo.yLabel = 'New Cases (x10^3)'
-            break
-        case 2:
-            chartInfo.title = 'Daily deaths'
-            
-            chartInfo.xLabel = 'Day'
-            chartInfo.yLabel = 'Deaths'            
-            break
-        default:
-
+    const chartParameters = {
+        "title": title,
+        "xLabel": xLabel,
+        "yLabel": yLabel,
+        "yMax": yMax,
+        "mostRecentPlotDataArr": mostRecentTimelineData,
     }
 
-    return chartInfo
+    return chartParameters
     
 }
 
-export default {getBarChartData}
+export default {getBarChartParameters}

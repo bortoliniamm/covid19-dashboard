@@ -1,15 +1,18 @@
 import React from 'react'
 import './styles.css'
 import '../../node_modules/react-vis/dist/style.css'
-import curveHelper from '../helpers/curveHelpers'
 
 import {FlexibleXYPlot, XAxis, YAxis, LineSeries, VerticalGridLines, HorizontalGridLines} from 'react-vis'
 
-export default function CurveChart({timelineData, period, curveType}) {
+import curveHelper from '../helpers/curveHelpers'
 
+export default function CurveChart({countryTimelineData, period, curveType}) {
+    
+    const chartParameters = curveHelper.getCurveParameters(countryTimelineData, period, curveType)
+    
     function formatTicks(tick) {
 
-        const entrieToChangeTick = chartInfo.mostRecentPlotDataArr.find((entrie) => {
+        const entrieToChangeTick = chartParameters.mostRecentPlotDataArr.find((entrie) => {
             return entrie.x === tick
         })
 
@@ -18,17 +21,16 @@ export default function CurveChart({timelineData, period, curveType}) {
         return newTick
     }
     
-    const chartInfo = curveHelper.selectInfo(curveType, timelineData, period)
 
     return (
         <div className="center">
-            <h5>{chartInfo.title}</h5>
-            <FlexibleXYPlot height={250} xDomain={[chartInfo.firstDayOfPeriod.x, chartInfo.lastDayOfPeriod.x]} yDomain={[chartInfo.firstDayOfPeriod.y, chartInfo.lastDayOfPeriod.y]}>
+            <h5>{chartParameters.title}</h5>
+            <FlexibleXYPlot height={250} xDomain={[chartParameters.firstDayOfPeriod.x, chartParameters.lastDayOfPeriod.x]} yDomain={[chartParameters.firstDayOfPeriod.y, chartParameters.lastDayOfPeriod.y]}>
                 <VerticalGridLines />
                 <HorizontalGridLines />
-                <XAxis title={chartInfo.xLabel} tickFormat={formatTicks}  />
-                <YAxis title={chartInfo.yLabel} tickFormat={v => v/1000}/>
-                <LineSeries data={chartInfo.mostRecentPlotDataArr} />
+                <XAxis title={chartParameters.xLabel} tickFormat={formatTicks}  />
+                <YAxis title={chartParameters.yLabel} tickFormat={v => v/1000}/>
+                <LineSeries data={chartParameters.mostRecentPlotDataArr} />
             </FlexibleXYPlot>
 
         </div>

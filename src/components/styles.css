@@ -17,9 +17,15 @@ body, html {
     margin-top: 10px;
     min-width: 500px;
 }
-.inner-sidebar {
+.outer-sidebar {
     border-radius: 10px;
     height: 90vh;
+    width: 25vh;
+    background-color: #ecf0f1;
+}
+.inner-sidebar {
+    border-radius: 10px;
+    height: 75vh;
     overflow-y: scroll;
     width: 25vh;
     background-color: #ecf0f1;

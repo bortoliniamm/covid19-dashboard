@@ -5,15 +5,15 @@ import CurveChart from './CurveChart'
 import Card from './Card'
 import BarChart from './BarChart'
 
-import dashHelpers from '../helpers/dashboardHelpers'
+import dashboardHelper from '../helpers/dashboardHelpers'
 
-export default function Dashboard({ timelineData, currCountry, period }) {
+export default function Dashboard({ currCountryTimelineData, currCountrySummary, period }) {
     
-    const countryTimeLineData = dashHelpers.treatRawData(timelineData, currCountry)
+    const countryTimeLineData = dashboardHelper.treatRawData(currCountryTimelineData)
     
-    const formattedCurrCountry = dashHelpers.formatCurrCountryArr(currCountry)
+    const formattedCurrCountry = dashboardHelper.formatCurrCountryArr(currCountrySummary)
 
-    const percentages = dashHelpers.calculatePercentages(currCountry);
+    const percentages = dashboardHelper.calculatePercentages(currCountrySummary);
 
     return (
 
@@ -22,17 +22,17 @@ export default function Dashboard({ timelineData, currCountry, period }) {
 
                 <div className='grid'>
 
-                    <div className='card-in-grid'><Card country={formattedCurrCountry} cardType={1} percentages={percentages}/></div>
-                    <div className='card-in-grid'><Card country={formattedCurrCountry} cardType={2} percentages={percentages}/></div>
+                    <div className='card-in-grid'><Card country={formattedCurrCountry} percentages={percentages} cardType={1}/></div>
+                    <div className='card-in-grid'><Card country={formattedCurrCountry} percentages={percentages} cardType={2}/></div>
                     
-                    <div className='charts'><CurveChart timelineData={countryTimeLineData} period={period} curveType={1}/></div>
-                    <div className='charts'><BarChart timelineData={countryTimeLineData} period={period} barChartType={1}/></div>
+                    <div className='charts'><CurveChart countryTimelineData={countryTimeLineData} period={period} curveType={1}/></div>
+                    <div className='charts'><BarChart countryTimelineData={countryTimeLineData} period={period} barChartType={1}/></div>
                     
-                    <div className='card-in-grid'><Card country={formattedCurrCountry} cardType={3} percentages={percentages}/></div>
-                    <div className='card-in-grid'><Card country={formattedCurrCountry} cardType={4} percentages={percentages}/></div>
+                    <div className='card-in-grid'><Card country={formattedCurrCountry} percentages={percentages} cardType={3}/></div>
+                    <div className='card-in-grid'><Card country={formattedCurrCountry} percentages={percentages} cardType={4}/></div>
                     
-                    <div className='charts'><CurveChart timelineData={countryTimeLineData} period={period} curveType={2}/></div>
-                    <div className='charts'><BarChart timelineData={countryTimeLineData} period={period} barChartType={2}/></div>
+                    <div className='charts'><CurveChart countryTimelineData={countryTimeLineData} period={period} curveType={2}/></div>
+                    <div className='charts'><BarChart countryTimelineData={countryTimeLineData} period={period} barChartType={2}/></div>
                 
                 </div>
             </div>  

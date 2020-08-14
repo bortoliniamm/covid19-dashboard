@@ -1,57 +1,67 @@
-function selectInfo(curveType, timelineData, period) {
+function getCurveParameters(countryTimelineData, period, curveType) {
     
-    let chartInfo = {}
-
-    let plotDataArr = []
-    let dayCount = 0
-    let maxCases = 0
-
-
-
-    timelineData.forEach((entrie) => {
-        let yValue = 0
-        if(curveType===1){
-            yValue=entrie.cases
-        }else if(curveType===2){
-            yValue=entrie.deaths
-        }
-        plotDataArr.push({x:dayCount, y:Number(yValue), tickDate: entrie.dayAndMonth})
-        dayCount++;
-    })
+    let title = ''
+    let xLabel = ''
+    let yLabel = ''
     
-    const mostRecentPlotDataArr = plotDataArr.slice(-period)
-    chartInfo.mostRecentPlotDataArr=mostRecentPlotDataArr
-
-    mostRecentPlotDataArr.forEach((entrie) => {
-        if (entrie.y > maxCases){
-            maxCases=entrie.y
-        }
-    })
-    chartInfo.maxCases=maxCases
-
-    const firstDayOfPeriod = mostRecentPlotDataArr[0]
-    chartInfo.firstDayOfPeriod = firstDayOfPeriod
-    
-    const lastDayOfPeriod = mostRecentPlotDataArr[mostRecentPlotDataArr.length - 1]
-    chartInfo.lastDayOfPeriod = lastDayOfPeriod
-
+    //curveType: 1 for total cases and 2 for total deaths
     switch (curveType) {
         case 1:
-            chartInfo.title = 'Total accumulated cases'
+            title = 'Total accumulated cases'
 
-            chartInfo.xLabel = 'Day'
-            chartInfo.yLabel = 'Cases (x10^3)'
+            xLabel = 'Day'
+            yLabel = 'Cases (x10^3)'
             break
         case 2:
-            chartInfo.title = 'Total accumulated deaths'
+            title = 'Total accumulated deaths'
             
-            chartInfo.xLabel = 'Day'
-            chartInfo.yLabel = 'Deaths (x10^3)'
+            xLabel = 'Day'
+            yLabel = 'Deaths (x10^3)'
             break
         default:
     }
 
-    return chartInfo
+    let auxCountryTimeLineData = []
+    let day = 0
+    countryTimelineData.forEach((entrie) => {
+        
+        let yValueAux = 0
+
+        if(curveType === 1) {
+            yValueAux = entrie.cases
+        }else if(curveType === 2) {
+            yValueAux = entrie.deaths
+        }
+
+        auxCountryTimeLineData.push({x:day, y:Number(yValueAux), tickDate: entrie.dayAndMonth})
+        
+        day++;
+    })
+    
+    const mostRecentTimelineData = auxCountryTimeLineData.slice(-period)
+
+    let yMax=0
+    mostRecentTimelineData.forEach((entrie) => {
+        if (entrie.y > yMax){
+            yMax=entrie.y
+        }
+    })
+    
+    const firstDayOfPeriod = mostRecentTimelineData[0]
+    
+    const lastDayOfPeriod = mostRecentTimelineData[mostRecentTimelineData.length - 1]
+    
+    const chartParameters = {
+        "title": title,
+        "xLabel": xLabel,
+        "yLabel": yLabel,
+        "yMax": yMax,
+        "mostRecentPlotDataArr": mostRecentTimelineData,
+        "firstDayOfPeriod": firstDayOfPeriod,
+        "lastDayOfPeriod": lastDayOfPeriod,
+    }
+
+    return chartParameters
 }   
 
-export default {selectInfo}
+export default {getCurveParameters}
