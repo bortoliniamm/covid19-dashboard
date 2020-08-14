@@ -12,11 +12,11 @@ ___
 ___
 
 
-## :About
+## About
 
 It is a dashboard to keep track of COVID-19 pandemic situation around the world.
 
-## :Technologies 
+## Technologies 
 
 
 - Axios 0.19.2
@@ -25,9 +25,14 @@ It is a dashboard to keep track of COVID-19 pandemic situation around the world.
 - reactstrap 8.5.1
 - react-vis 1.11.7
 
-## :Available Scripts
+## Available Scripts
 
 In the project directory, you can run:
+
+### `yarn`
+
+Downloads all necessary dependencies. 
+It should be executed before running the app.
 
 ### `yarn start`
 
