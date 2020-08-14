@@ -1,6 +1,31 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h2 align="center">covid19-dashboard</h2>
 
-## Available Scripts
+___
+
+<h3 align="center">
+  <a href="#about">About</a>&nbsp;|&nbsp;
+  <a href="#technologies">Technologies</a>&nbsp;|&nbsp;
+  <a href="#available-scripts">Available Scripts</a>&nbsp;|&nbsp;
+  
+</h3>
+
+___
+
+
+## :About
+
+It is a dashboard to keep track of COVID-19 pandemic situation around the world.
+
+## :Technologies 
+
+
+- Axios 0.19.2
+- Materialize-css 1.0.0
+- React Native  16.13.1
+- reactstrap 8.5.1
+- react-vis 1.11.7
+
+## :Available Scripts
 
 In the project directory, you can run:
 
@@ -66,3 +91,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
