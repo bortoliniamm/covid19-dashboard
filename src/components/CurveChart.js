@@ -1,38 +1,62 @@
-import React from 'react'
-import '../../node_modules/react-vis/dist/style.css'
-import './styles.css'
+import React from "react";
+import "../../node_modules/react-vis/dist/style.css";
+import "./styles.css";
+import { useSelector } from "react-redux";
 
-import {FlexibleXYPlot, XAxis, YAxis, LineSeries, VerticalGridLines, HorizontalGridLines} from 'react-vis'
+import {
+  FlexibleXYPlot,
+  XAxis,
+  YAxis,
+  LineSeries,
+  VerticalGridLines,
+  HorizontalGridLines,
+} from "react-vis";
 
-import curveHelper from '../helpers/curveHelpers'
+import curveHelper from "../helpers/curveHelpers";
 
-export default function CurveChart({countryTimelineData, period, curveType}) {
-    
-    const chartParameters = curveHelper.getCurveParameters(countryTimelineData, period, curveType)
-    
-    function formatTicks(tick) {
+export default function CurveChart({ curveType }) {
+  const period = useSelector(({ periodToCheck }) => periodToCheck.period);
+  const countryTimelineData = useSelector(
+    ({ timeline }) => timeline.currCountryTimelineData
+  );
+  const chartParameters = curveHelper.getCurveParameters(
+    countryTimelineData,
+    period,
+    curveType
+  );
 
-        const entrieToChangeTick = chartParameters.mostRecentPlotDataArr.find((entrie) => {
-            return entrie.x === tick
-        })
+  function formatTicks(tick) {
+    const entrieToChangeTick = chartParameters.mostRecentPlotDataArr.find(
+      (entrie) => {
+        return entrie.x === tick;
+      }
+    );
 
-        const newTick = entrieToChangeTick.tickDate
-        
-        return newTick
-    }
-    
+    const newTick = entrieToChangeTick.tickDate;
 
-    return (
-        <div className="center">
-            <h5>{chartParameters.title}</h5>
-            <FlexibleXYPlot height={250} xDomain={[chartParameters.firstDayOfPeriod.x, chartParameters.lastDayOfPeriod.x]} yDomain={[chartParameters.firstDayOfPeriod.y, chartParameters.lastDayOfPeriod.y]}>
-                <VerticalGridLines />
-                <HorizontalGridLines />
-                <XAxis title={chartParameters.xLabel} tickFormat={formatTicks}  />
-                <YAxis title={chartParameters.yLabel} tickFormat={v => v/1000}/>
-                <LineSeries data={chartParameters.mostRecentPlotDataArr} />
-            </FlexibleXYPlot>
+    return newTick;
+  }
 
-        </div>
-    )
+  return (
+    <div className="center">
+      <h5>{chartParameters.title}</h5>
+      <FlexibleXYPlot
+        height={250}
+        xDomain={[
+          chartParameters.firstDayOfPeriod.x,
+          chartParameters.lastDayOfPeriod.x,
+        ]}
+        yDomain={[
+          chartParameters.firstDayOfPeriod.y,
+          chartParameters.lastDayOfPeriod.y,
+        ]}
+      >
+        <VerticalGridLines />
+        <HorizontalGridLines />
+        <XAxis title={chartParameters.xLabel} tickFormat={formatTicks} />
+        <YAxis title={chartParameters.yLabel} tickFormat={(v) => v / 1000} />
+        <LineSeries data={chartParameters.mostRecentPlotDataArr} />
+      </FlexibleXYPlot>
+    </div>
+  );
 }

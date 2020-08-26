@@ -1,28 +1,4 @@
-import axios from "axios";
-
-async function fetchSummaryData() {
-  const url = "https://api.thevirustracker.com/free-api?countryTotals=ALL";
-
-  const response = await axios.get(url);
-  const rawData = response.data.countryitems[0];
-  const arrData = Object.values(rawData);
-
-  return arrData;
-}
-
-async function fetchTimelineData() {
-  const url = "https://thevirustracker.com/timeline/map-data.json";
-
-  // Next url is an url to avoid cors issues
-  const proxyurl = "https://cors-anywhere.herokuapp.com/";
-
-  const response = await axios.get(proxyurl + url);
-  const arrData = response.data.data;
-
-  const timeline = treatRawTimelineData(arrData);
-
-  return timeline;
-}
+const numberStyle = new Intl.NumberFormat("en-US");
 
 const treatRawTimelineData = (currCountryTimelineData) => {
   let auxCountryTimeLineData = Object.assign([], currCountryTimelineData);
@@ -50,8 +26,6 @@ const treatRawTimelineData = (currCountryTimelineData) => {
 };
 
 const formatCurrCountryArr = (currCountry) => {
-  console.log(currCountry);
-  const numberStyle = new Intl.NumberFormat("en-US");
   const {
     code,
     ourid,
@@ -121,4 +95,8 @@ const calculatePercentages = (currCountry) => {
   return formattedPercentages;
 };
 
-export default { fetchSummaryData, fetchTimelineData, formatCurrCountryArr };
+export default {
+  treatRawTimelineData,
+  formatCurrCountryArr,
+  calculatePercentages,
+};
